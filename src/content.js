@@ -1,5 +1,3 @@
-//    "matches": ["https://app.schoology.com/*"],
-
 /* Opacities */
 const opacities = {
   1: "1A",
