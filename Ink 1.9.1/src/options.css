@@ -1,0 +1,55 @@
+:root {
+  --ink-hex: black;
+  --ink-color: black;
+  
+  --ink-border: solid;
+}
+
+body {
+  background-image: url("..//assets/bliss.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#color {
+  background: var(--ink-color) !important;
+  border: var(--ink-border) 2px var(--ink-color) !important;
+}
+
+#options-window {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -25%);
+}
+
+.field-row>label {
+  cursor: auto;
+}
+
+#data {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -35%);
+}
+
+button,
+#audio-option>*,
+#options>fieldset>.field-row>label {
+  cursor: pointer;
+}
+
+#custom-color-box>label {
+  cursor: auto !important;
+}
+
+#opacity {
+  cursor: pointer !important;
+}
+
+#border, option {
+  cursor: pointer !important;
+}
