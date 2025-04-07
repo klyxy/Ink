@@ -2,7 +2,7 @@
 
 **Ink** is a lightweight Chrome extension that visually highlights **late submissions** on **Schoology**, making it easier to spot overdue work at a glance.
 
-![Screenshot](https://github.com/user-attachments/assets/37f5cb89-fd27-4df8-8057-b4dfb8f0737a)
+![Screenshot](https://github.com/user-attachments/assets/66c7b87c-2193-49a3-bd86-95588331db6d)
 
 *Version 2.1.0 UI*
 
