@@ -44,7 +44,7 @@ function compare(version1, version2) {
 }
 
 // Check Version
-if (window.location.href.includes('home')) {
+if (window.location.href.includes("home") || window.location.href.includes("course")) {
   (async () => {
     try {
       const response = await fetch("https://api.github.com/repos/klyxy/Ink/releases/latest");
