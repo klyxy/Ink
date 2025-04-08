@@ -12,7 +12,17 @@
 
   // Load Colors
   chrome.storage.local.get(
-    ["hex", "string", "boot", "opacity", "border", "contrast", "calculated"],
+    [
+      "hex",
+      "string",
+      "boot",
+      "opacity",
+      "border",
+      "contrast",
+      "calculated",
+      "debug",
+    ],
+
     function (result) {
       const settings = { ...defaults, ...result };
 
@@ -28,6 +38,8 @@
       } else {
         style.setProperty("--ink-calculated", undefined);
       }
+
+      document.documentElement.setAttribute("ink-debug", settings.debug);
     }
   );
 

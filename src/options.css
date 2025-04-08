@@ -20,7 +20,7 @@ body {
   transform: translate(-50%, -25%);
 }
 
-.field-row>label {
+.field-row > label {
   cursor: auto;
 }
 
@@ -32,12 +32,12 @@ body {
 }
 
 button,
-#audio-option>*,
-#options>fieldset>.field-row>label {
+#audio-option > *,
+#options > fieldset > .field-row > label {
   cursor: pointer;
 }
 
-#custom-color-box>label {
+#custom-color-box > label {
   cursor: auto !important;
 }
 
@@ -45,6 +45,11 @@ button,
   cursor: pointer !important;
 }
 
-#border, option {
+#border,
+option {
+  cursor: pointer !important;
+}
+
+.debug, .debug * {
   cursor: pointer !important;
 }

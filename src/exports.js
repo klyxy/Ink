@@ -29,6 +29,7 @@ export const defaults = {
   border: "Solid",
   contrast: true,
   calculated: "#000000",
+  debug: false,
 };
 
 export const textColor = "#3762ff";

@@ -14,6 +14,7 @@ const contrastElement = document.querySelector("#contrast");
 const customElement = document.querySelector("#custom");
 const customBoxElement = document.querySelector("#custom-color-box");
 const customTextElement = document.querySelector("#custom-color");
+const developerElement = document.querySelector("#debug");
 
 const resetElement = document.querySelector("#reset");
 const closeElement = document.querySelector("#close");
@@ -73,7 +74,7 @@ versionElement.textContent = `Version: ${chrome.runtime.getManifest().version}`;
 
 // Load Data
 chrome.storage.local.get(
-  ["hex", "string", "boot", "opacity", "border", "contrast"],
+  ["hex", "string", "boot", "opacity", "border", "contrast", "debug"],
   function (result) {
     const settings = { ...defaults, ...result };
 
@@ -94,7 +95,8 @@ chrome.storage.local.get(
     borderElement.value = settings.border;
     opacityElement.value = settings.opacity;
     contrastElement.checked = settings.contrast;
-
+    developerElement.checked = settings.debug;
+    
     if (settings.string == "custom") {
       customTextElement.value = settings.hex;
       customTextElement.textContent = settings.hex;
@@ -196,6 +198,14 @@ contrastElement.addEventListener("change", function () {
       contrastElement.checked
     );
   });
+});
+
+// Developer Selector
+developerElement.addEventListener("change", function () {
+  chrome.storage.local.set(
+    { debug: developerElement.checked },
+    function () {}
+  );
 });
 
 /* UI */
