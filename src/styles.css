@@ -11,6 +11,7 @@
   padding-bottom: 5px !important;
 }
 
+/* Demo Element */
 .sgy-multiline-ellipsis {
   background-color: var(--ink-color) !important;
   border: var(--ink-border) 2px var(--ink-color) !important;
