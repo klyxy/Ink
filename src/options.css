@@ -1,10 +1,3 @@
-:root {
-  --ink-hex: black;
-  --ink-color: black;
-  
-  --ink-border: solid;
-}
-
 body {
   background-image: url("..//assets/bliss.jpeg");
   background-size: cover;
@@ -15,7 +8,9 @@ body {
 
 #color {
   background: var(--ink-color) !important;
+  padding: 2px !important;
   border: var(--ink-border) 2px var(--ink-color) !important;
+  color: var(--ink-contrast) !important;
 }
 
 #options-window {

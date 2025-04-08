@@ -1,137 +1,148 @@
 <!DOCTYPE html>
 <html>
-<title>Options</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="stylesheet" href="options.css" />
-<link rel="stylesheet" href="https://unpkg.com/xp.css" />
+  <title>Options</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="options.css" />
+  <link rel="stylesheet" href="https://unpkg.com/xp.css" />
 
-<body>
-  <audio id="audio" src="../assets/start.mp3"></audio>
+  <body>
+    <audio id="audio" src="../assets/start.mp3"></audio>
 
-  <div id="options-window" class="window" style="width: 400px">
-    <div id="options-window-header" class="title-bar">
-      <div class="title-bar-text">Ink</div>
-      <div class="title-bar-controls">
-        <a href="https://www.google.com/search?q=color+picker" target="_blank">
-          <button aria-label="Help"></button>
-        </a>
-      </div>
-    </div>
-    <div class="window-body">
-      <menu role="tablist">
-        <button aria-selected="true" aria-controls="options">
-          Schoology
-        </button>
-        <button aria-controls="extension">Extension</button>
-      </menu>
-      <article role="tabpanel" id="options">
-        <p>Submission Box:</p>
-        <progress id="color" max="0" value="0"></progress>
-        <br></br>
-        <fieldset>
-          <legend>Color:</legend>
-          <div class="field-row">
-          </div>
-          <div class="field-row">
-            <input id="red" name="color" type="radio" />
-            <label for="red">Red</label>
-          </div>
-          <div class="field-row">
-            <input id="orange" name="color" type="radio" />
-            <label for="orange">Orange</label>
-          </div>
-          <div class="field-row">
-            <input id="yellow" name="color" type="radio" />
-            <label for="yellow">Yellow</label>
-          </div>
-          <div class="field-row">
-            <input id="green" name="color" type="radio" />
-            <label for="green">Green</label>
-          </div>
-          <div class="field-row">
-            <input id="blue" name="color" type="radio" />
-            <label for="blue">Blue</label>
-          </div>
-          <div class="field-row">
-            <input id="purple" name="color" type="radio" />
-            <label for="purple">Purple</label>
-          </div>
-          <div class="field-row">
-            <input id="custom" name="color" type="radio" />
-            <label for="custom">Custom</label>
-          </div>
-          <div id="custom-color-box" class="field-row" style="display: none">
-            <label for="custom-color">Enter Hex Color:</label>
-            <input id="custom-color" type="text" placeholder="#000000" />
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Opacity:</legend>
-          <div class="field-row" style="width: 300px">
-            <label for="opacity">10%</label>
-            <input id="opacity" type="range" min="1" max="10" value="5" />
-            <label for="opacity">100%</label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Border:</legend>
-          <select id="border">
-            <option>None</option>
-            <option selected>Solid</option>
-            <option>Dashed</option>
-            <option>Dotted</option>
-            <option>Double</option>
-          </select>
-        </fieldset>
-      </article>
-
-      <article role="tabpanel" hidden id="extension">
-        <p>Credits:</p>
-        <fieldset>
-          <legend>XP.css:</legend>
-          <a href="https://github.com/botoxparty/XP.css/blob/main/LICENSE">License</a>
-        </fieldset>
-
-        <p>Options:</p>
-        <fieldset>
-          <legend>Audio:</legend>
-          <div id="audio-option" class="field-row">
-            <input id="boot-sound" name="boot-sound" type="checkbox" />
-            <label for="boot-sound">Boot sound</label>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Data:</legend>
-          <section class="field-row">
-            <button id="view">User Data</button>
-            <label>View all user data</label>
-          </section>
-          <section class="field-row">
-            <button id="reset">Reset Data</button>
-            <label>Resets all user data</label>
-          </section>
-        </fieldset>
-
-        <div class="status-bar">
-          <p id="version" class="status-bar-field">@0.0</p>
+    <div id="options-window" class="window" style="width: 400px">
+      <div id="options-window-header" class="title-bar">
+        <div class="title-bar-text">Ink</div>
+        <div class="title-bar-controls">
+          <a
+            href="https://www.google.com/search?q=color+picker"
+            target="_blank"
+          >
+            <button aria-label="Help"></button>
+          </a>
         </div>
-      </article>
-    </div>
-  </div>
+      </div>
+      <div class="window-body">
+        <menu role="tablist">
+          <button aria-selected="true" aria-controls="options">
+            Schoology
+          </button>
+          <button aria-controls="extension">Extension</button>
+        </menu>
+        <article role="tabpanel" id="options">
+          <p>Submission Box:</p>
+          <fieldset>
+            <label id="color">The quick brown fox jumps over the lazy dog</label>
+          </fieldset>
+          <fieldset>
+            <legend>Color:</legend>
+            <div class="field-row"></div>
+            <div class="field-row">
+              <input id="red" name="color" type="radio" />
+              <label for="red">Red</label>
+            </div>
+            <div class="field-row">
+              <input id="orange" name="color" type="radio" />
+              <label for="orange">Orange</label>
+            </div>
+            <div class="field-row">
+              <input id="yellow" name="color" type="radio" />
+              <label for="yellow">Yellow</label>
+            </div>
+            <div class="field-row">
+              <input id="green" name="color" type="radio" />
+              <label for="green">Green</label>
+            </div>
+            <div class="field-row">
+              <input id="blue" name="color" type="radio" />
+              <label for="blue">Blue</label>
+            </div>
+            <div class="field-row">
+              <input id="purple" name="color" type="radio" />
+              <label for="purple">Purple</label>
+            </div>
+            <div class="field-row">
+              <input id="custom" name="color" type="radio" />
+              <label for="custom">Custom</label>
+            </div>
+            <div id="custom-color-box" class="field-row" style="display: none">
+              <label for="custom-color">Enter Hex Color:</label>
+              <input id="custom-color" type="text" placeholder="#000000" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Opacity:</legend>
+            <div class="field-row" style="width: 300px">
+              <label for="opacity">10%</label>
+              <input id="opacity" type="range" min="1" max="10" value="1" />
+              <label for="opacity">100%</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Border:</legend>
+            <select id="border">
+              <option>None</option>
+              <option selected>Solid</option>
+              <option>Dashed</option>
+              <option>Dotted</option>
+              <option>Double</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>Text:</legend>
+            <div class="field-row">
+              <input type="checkbox" id="contrast" />
+              <label for="contrast">High Contrast</label>
+            </div>
+          </fieldset>
+        </article>
 
-  <div class="window" id="data" style="width: 200px; display: none">
-    <div class="title-bar">
-      <div class="title-bar-text">User Data</div>
-      <div class="title-bar-controls">
-        <button id="close" aria-label="Close"></button>
+        <article role="tabpanel" hidden id="extension">
+          <p>Credits:</p>
+          <fieldset>
+            <legend>XP.css:</legend>
+            <a href="https://github.com/botoxparty/XP.css/blob/main/LICENSE"
+              >License</a
+            >
+          </fieldset>
+
+          <p>Options:</p>
+          <fieldset>
+            <legend>Audio:</legend>
+            <div id="audio-option" class="field-row">
+              <input id="boot" name="boot" type="checkbox" />
+              <label for="boot">Boot sound</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Data:</legend>
+            <section class="field-row">
+              <button id="view">User Data</button>
+              <label>View all user data</label>
+            </section>
+            <section class="field-row">
+              <button id="reset">Reset Data</button>
+              <label>Resets all user data</label>
+            </section>
+          </fieldset>
+
+          <div class="status-bar">
+            <p id="version" class="status-bar-field">@0.0</p>
+          </div>
+        </article>
       </div>
     </div>
-    <div class="window-body">
-      <pre></pre>
-    </div>
-  </div>
-</body>
-<script src="options.js"></script>
 
+    <div class="window" id="data" style="width: 200px; display: none">
+      <div class="title-bar">
+        <div class="title-bar-text">User Data</div>
+        <div class="title-bar-controls">
+          <button id="close" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <pre></pre>
+      </div>
+    </div>
+  </body>
+  <script type="module" src="options.js"></script>
 </html>

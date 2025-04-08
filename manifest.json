@@ -1,29 +1,30 @@
 {
   "manifest_version": 3,
   "name": "Ink",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "Schoology Addons",
   "icons": {
     "16": "icons/16.png",
     "48": "icons/48.png",
     "128": "icons/128.png"
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   "options_page": "src/options.html",
+  "web_accessible_resources": [
+    {
+      "resources": ["src/exports.js"],
+      "matches": ["https://learn.sowashco.org/*", "https://app.schoology.com/*"]
+    }
+  ],
   "content_scripts": [
     {
       "matches": [
         "https://learn.sowashco.org/*",
         "https://app.schoology.com/*"
       ],
-      "js": [
-        "src/content.js"
-      ],
-      "css": [
-        "src/styles.css"
-      ]
+      "js": ["src/content.js"],
+      "css": ["src/styles.css"],
+      "run_at": "document_end"
     }
   ]
 }

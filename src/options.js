@@ -1,130 +1,206 @@
-/* Colors */
-const colors = {
-  red: "#FF0000",
-  orange: "#FFA500",
-  yellow: "#FFFF00",
-  green: "#008000",
-  blue: "#0000FF",
-  purple: "#800080",
-  custom: "#000000",
-};
+/* Declarations */
 
-/* Opacities */
-const opacities = {
-  1: "1A",
-  2: "33",
-  3: "4D",
-  4: "66",
-  5: "80",
-  6: "99",
-  7: "B3",
-  8: "CC",
-  9: "E6",
-  10: "FF",
-};
+// Imports
+import { colors, opacities, defaults, textColor } from "./exports.js";
 
-// Version
-document.querySelector("#version").textContent = `Version: ${chrome.runtime.getManifest().version}`;
+// Constants
+const versionElement = document.querySelector("#version");
+const audioElement = document.querySelector("#audio");
+
+const bootElement = document.querySelector("#boot");
+const opacityElement = document.querySelector("#opacity");
+const borderElement = document.querySelector("#border");
+const contrastElement = document.querySelector("#contrast");
+const customElement = document.querySelector("#custom");
+const customBoxElement = document.querySelector("#custom-color-box");
+const customTextElement = document.querySelector("#custom-color");
+
+const resetElement = document.querySelector("#reset");
+const closeElement = document.querySelector("#close");
+const dataElement = document.querySelector("#data");
+const viewElement = document.querySelector("#view");
+
+const style = document.documentElement.style;
+
+const tabs = document.querySelectorAll("menu button");
+const tabContents = document.querySelectorAll("article");
+
+/* Functions */
+
+// Contrast
+function updateContrast(
+  contrast = contrastElement.checked,
+  color = style.getPropertyValue("--ink-color")
+) {
+  if (contrast == true) {
+    style.setProperty("--ink-contrast", calculateContrast(color));
+  } else {
+    style.setProperty("--ink-contrast", textColor);
+  }
+
+  chrome.storage.local.set(
+    { calculated: style.getPropertyValue("--ink-contrast") },
+    function () {}
+  );
+}
+
+function calculateContrast(hex, background = "#ffffff") {
+  hex = hex.replace("#", "");
+
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  const a = parseInt(hex.substring(6, 8), 16) / 255;
+
+  const bg = background.replace("#", "");
+  const br = parseInt(bg.substring(0, 2), 16);
+  const bgG = parseInt(bg.substring(2, 4), 16);
+  const bb = parseInt(bg.substring(4, 6), 16);
+
+  const finalR = Math.round(r * a + br * (1 - a));
+  const finalG = Math.round(g * a + bgG * (1 - a));
+  const finalB = Math.round(b * a + bb * (1 - a));
+
+  const brightness = (finalR * 299 + finalG * 587 + finalB * 114) / 1000;
+
+  return brightness > 128 ? "#000000" : "#FFFFFF";
+}
+
+/* Options */
+
+// Initialize
+versionElement.textContent = `Version: ${chrome.runtime.getManifest().version}`;
 
 // Load Data
-chrome.storage.local.get(["hex", "color", "bootsound", "opacity", "border"], function (result) {
-  if (!result.hex) {
-    console.log("New data!");
+chrome.storage.local.get(
+  ["hex", "string", "boot", "opacity", "border", "contrast"],
+  function (result) {
+    const settings = { ...defaults, ...result };
 
-    result.hex = "#0000FF";
-    result.color = "blue";
-    result.bootsound = false;
-    result.opacity = 5;
-    result.border = "Solid";
+    // Generate New Data
+    if (!result.hex) {
+      console.log("Generating new data");
 
-    document.querySelector(`#boot-sound`).checked = result.bootsound;
+      chrome.storage.local.set(settings);
+    }
 
-    chrome.storage.local.set(
-      { hex: result.hex, color: result.color, bootsound: result.bootsound, opacity: result.opacity, border: result.border },
+    console.log(`Data loaded: ${settings}`);
+
+    //  Update HTML
+    const colorElement = document.querySelector(`#${settings.string}`);
+
+    colorElement.checked = true;
+    bootElement.checked = settings.boot;
+    borderElement.value = settings.border;
+    opacityElement.value = settings.opacity;
+    contrastElement.checked = settings.contrast;
+
+    if (settings.string == "custom") {
+      customTextElement.value = settings.hex;
+      customTextElement.textContent = settings.hex;
+      customBoxElement.style = "display: inherit;";
+    }
+
+    // Update Contrast
+    updateContrast(
+      settings.contrast,
+      `${settings.hex}${opacities[settings.opacity]}`
     );
+
+    // Update CSS
+    style.setProperty("--ink-hex", settings.hex);
+    style.setProperty(
+      "--ink-color",
+      `${settings.hex}${opacities[settings.opacity]}`
+    );
+    style.setProperty("--ink-border", settings.border);
+
+    // Boot
+    if (settings.boot == true) {
+      audioElement.play();
+    }
   }
+);
 
-  // Set CSS
-  document.documentElement.style.setProperty("--ink-hex", result.hex);
-  document.documentElement.style.setProperty("--ink-border", result.border);
-  document.documentElement.style.setProperty("--ink-color", `${result.hex}${opacities[result.opacity]}`);
+// String Selector
+Object.keys(colors).forEach((string) => {
+  document.querySelector(`#${string}`).addEventListener("click", () => {
+    const hex = colors[string];
 
-  // Update HTML
-  document.querySelector(`#${result.color}`).checked = true;
-  document.querySelector(`#boot-sound`).checked = result.bootsound;
-  document.getElementById("opacity").value = result.opacity;
-  document.getElementById("border").value = result.border;
+    chrome.storage.local.set({ hex: hex, string: string }, function () {
+      style.setProperty("--ink-hex", hex);
+      style.setProperty(
+        "--ink-color",
+        `${hex}${opacities[opacityElement.value]}`
+      );
 
-  // Update Custom HTML
-  if (result.color == "custom") {
-    document.querySelector(`#custom-color`).value = result.hex;
-    document.querySelector(`#custom-color-box`).style = "display: inherit;";
-    document.querySelector("#custom-color").textContent = result.hex;
-  }
-
-  // Boot Sound
-  if (result.bootsound == true) {
-    document.getElementById("audio").play();
-  }
-});
-
-// Opacity Slider
-document.getElementById("opacity").addEventListener("input", function () {
-  chrome.storage.local.set({ opacity: document.getElementById("opacity").value }, function () {
-    const hex = document.documentElement.style.getPropertyValue("--ink-hex");
-    document.documentElement.style.setProperty("--ink-hex", hex);
-    document.documentElement.style.setProperty("--ink-color", `${hex}${opacities[document.getElementById("opacity").value]}`);
-  });
-});
-
-document.getElementById("border").addEventListener("change", function () {
-  chrome.storage.local.set({ border: document.getElementById("border").value }, function () {
-    document.documentElement.style.setProperty("--ink-border", document.getElementById("border").value);
-  });
-});
-
-// Color Selectors
-Object.keys(colors).forEach((color) => {
-  document.querySelector(`#${color}`).addEventListener("click", () => {
-    const hex = colors[color];
-    chrome.storage.local.set({ hex: hex, color: color }, function () {
-      document.documentElement.style.setProperty("--ink-hex", hex);
-      document.documentElement.style.setProperty("--ink-color", `${hex}${opacities[document.getElementById("opacity").value]}`);
+      updateContrast();
     });
 
-    document.querySelector(`#custom-color-box`).style = "display: none;";
+    customBoxElement.style = "display: none;";
   });
 });
 
 // Custom Selector
-document.querySelector(`#custom`).addEventListener("click", () => {
-  document.querySelector(`#custom-color-box`).style = "display: inherit;";
-  document.querySelector(`#custom-color`).value = "";
+customElement.addEventListener("click", () => {
+  customBoxElement.style = "display: inherit;";
+  customTextElement.value = "";
 });
 
-// Custom Textbox
-document.querySelector(`#custom-color`).addEventListener("input", () => {
-  const hex = document.querySelector(`#custom-color`).value.trim();
+customTextElement.addEventListener("input", () => {
+  const hex = customTextElement.value.trim();
+
   if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
-    chrome.storage.local.set({ hex: hex, color: "custom"}, function () {
-      document.documentElement.style.setProperty("--ink-hex", hex);
-      document.documentElement.style.setProperty("--ink-color", `${hex}${opacities[document.getElementById("opacity").value]}`);
+    chrome.storage.local.set({ hex: hex, string: "custom" }, function () {
+      style.setProperty("--ink-hex", hex);
+      style.setProperty(
+        "--ink-color",
+        `${hex}${opacities[opacityElement.value]}`
+      );
     });
   }
 });
 
-// Boot Sound
-document.querySelector(`#boot-sound`).addEventListener("change", function () {
-  chrome.storage.local.set(
-    { bootsound: document.querySelector(`#boot-sound`).checked },
-    function () { }
-  );
+// Opacity Selector
+opacityElement.addEventListener("input", function () {
+  chrome.storage.local.set({ opacity: opacityElement.value }, function () {
+    const hex = style.getPropertyValue("--ink-hex");
+    style.setProperty("--ink-hex", hex);
+    style.setProperty(
+      "--ink-color",
+      `${hex}${opacities[opacityElement.value]}`
+    );
+
+    updateContrast();
+  });
 });
 
-// Tab HTML
-const tabs = document.querySelectorAll("menu button");
-const tabContents = document.querySelectorAll("article");
+// Border Selector
+borderElement.addEventListener("change", function () {
+  chrome.storage.local.set({ border: borderElement.value }, function () {
+    style.setProperty("--ink-border", borderElement.value);
+  });
+});
 
+// Boot Selector
+bootElement.addEventListener("change", function () {
+  chrome.storage.local.set({ boot: bootElement.checked }, function () {});
+});
+
+// Contrast Selector
+contrastElement.addEventListener("change", function () {
+  chrome.storage.local.set({ contrast: contrastElement.checked }, function () {
+    updateContrast();
+    document.documentElement.setAttribute(
+      "ink-contrast",
+      contrastElement.checked
+    );
+  });
+});
+
+/* UI */
+
+// Tabs
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     tabContents.forEach((content) => (content.style.display = "none"));
@@ -139,25 +215,29 @@ tabs.forEach((tab) => {
   });
 });
 
-// Reset Data Button
-document.querySelector("#reset").addEventListener("click", () => {
-  chrome.storage.local.clear(function () { });
+// Reset Button
+resetElement.addEventListener("click", () => {
+  chrome.storage.local.clear(function () {});
 
   window.location.reload();
 });
 
-// View Data Button
-document.querySelector("#view").addEventListener("click", () => {
-  document.querySelector("#data").style = "width: 200px; display: block;";
-
-  chrome.storage.local.get(["hex", "color", "bootsound", "opacity", "border"], function (result) {
-    document.querySelector(
-      "pre"
-    ).innerHTML = `color: ${result.color} <br>hex: ${result.hex} <br>boot-sound: ${result.bootsound} <br>opacity: ${result.opacity} <br>border: ${result.border}`;
-  });
+// Close Button
+closeElement.addEventListener("click", () => {
+  dataElement.style = "width: 200px; display: none;";
 });
 
-// Close Button
-document.querySelector("#close").addEventListener("click", () => {
-  document.querySelector("#data").style = "width: 200px; display: none;";
+// View Button
+viewElement.addEventListener("click", () => {
+  dataElement.style = "width: 200px; display: block;";
+
+  chrome.storage.local.get(null, function (result) {
+    let output = "";
+
+    for (const [key, value] of Object.entries(result)) {
+      output += `${key}: ${value} <br>`;
+    }
+
+    document.querySelector("pre").innerHTML = output;
+  });
 });
