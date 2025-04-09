@@ -5,6 +5,10 @@
   outline: none !important;
 }
 
+.grader-grid-cell-block.missing .grader-grid-cell-inner:after {
+  color: var(--ink-calculated, initial) !important;
+}
+
 #ink-banner {
   color: black !important;
   padding-top: 5px !important;

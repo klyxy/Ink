@@ -30,6 +30,7 @@ export const defaults = {
   contrast: true,
   calculated: "#000000",
   debug: false,
+  update: true,
 };
 
-export const textColor = "#3762ff";
+export const textColor = "#88929b";

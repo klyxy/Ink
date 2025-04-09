@@ -33,6 +33,7 @@ body {
 
 button,
 #audio-option > *,
+#updates-option > *,
 #options > fieldset > .field-row > label {
   cursor: pointer;
 }
@@ -50,6 +51,7 @@ option {
   cursor: pointer !important;
 }
 
-.debug, .debug * {
+.debug,
+.debug * {
   cursor: pointer !important;
 }

@@ -22,10 +22,10 @@
       </div>
       <div class="window-body">
         <menu role="tablist">
-          <button aria-selected="true" aria-controls="options">
+          <button id="Schoology" aria-selected="true" aria-controls="options">
             Schoology
           </button>
-          <button aria-controls="extension">Extension</button>
+          <button id="Extension" aria-controls="extension">Extension</button>
         </menu>
         <article role="tabpanel" id="options">
           <p>Submission Box:</p>
@@ -112,6 +112,14 @@
             <div id="audio-option" class="field-row">
               <input id="boot" name="boot" type="checkbox" />
               <label for="boot">Boot sound</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Updates:</legend>
+            <div id="updates-option" class="field-row">
+              <input id="update" name="update" type="checkbox" />
+              <label for="update">Check for updates</label>
             </div>
           </fieldset>
 
