@@ -8,7 +8,7 @@
 
 ---
 
-## **🚀 Installation**
+## **🚀 Manual Installation**
 
 1. Download the [latest release](https://github.com/klyxy/Ink/releases/latest/).
 2. Extract the ZIP file to a secure folder.
@@ -18,18 +18,16 @@
 
 ---
 
+## **🚀 Chrome Installation**
+
+For easy installation, visit the [Chrome Web Store](https://chromewebstore.google.com/detail/meeejelefkapcckgepodmomgepmcjoci?utm_source=item-share-cb).
+
+---
+
 ## **🎨 Customization**
 
 You can customize **Ink** via its *Options Page*:
 
-### **Color**
-Choose from a preset color palette or enter your own custom **hex code**.
-
-### **Opacity**
-Adjust the **slider** to set how transparent the highlighted submission boxes appear.
-
-### **Border**
-Modify the **border style** (color, thickness, etc.) of the late submission boxes for added visibility.
-
----
-
+- **Color**: Choose from a preset palette or enter your own custom **hex code**.
+- **Opacity**: Adjust the **slider** to set how transparent the highlighted submission boxes should appear.
+- **Border**: Modify the **border style** (color, thickness, etc.) of the late submission boxes for added visibility.
