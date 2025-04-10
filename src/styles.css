@@ -1,10 +1,11 @@
+/* Submission Box */
 .grader-grid--highlighted:not(.grader-grid-cell-type-none)
   .grader-grid-cell-block {
   background-color: var(--ink-color) !important;
   border: var(--ink-border) 2px var(--ink-color) !important;
   outline: none !important;
   color: var(--ink-calculated, initial) !important;
-}
+  }
 
 #ink-banner {
   color: black !important;
